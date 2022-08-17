@@ -1,0 +1,22 @@
+<div class="container py-5">
+  <div class="cat-title">
+    <p class="text-white bg-primary-dark">{{parentName}}</p>
+  </div>
+  <div class="row">
+      <table datatable class="table table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <!--added index title to list-->
+              <th scope="col">File Name</th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor="let file of files" class="bg-hover-sunglow-50"> 
+              <!--added index number to list-->
+              <td><a [href]="pathURL+file.file_path" target="_blank" rel="noopener noreferrer">{{file.name}}</a></td>
+            </tr>
+          </tbody>
+        
+      </table>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+.cat-row{
+}
+.cat-col{
+    text-align:center;
+    margin-right: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+
+}
+.cat-container {
+    margin-bottom: 20px;
+}
+.card-style{
+    width:80%;
+    height: 200px!important;
+    margin-right: 20px;
+    position: relative;
+ }
+
+ .desc-style{
+    height: 90px;
+    font-size: .9em;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-box-orient: vertical;
+    box-orient: vertical;
+    -webkit-line-clamp: 4;
+    -moz-line-clamp: 4;
+    -ms-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+ }
+
+ .bottom-link {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+}
+ /*
+  mobile screen size*/
+ @media screen and (min-width:200px) and (max-width: 576px) {
+     .card-style{
+         width:70%;
+     }
+     .cat-col{
+         margin-top: 20px;
+     }
+ }

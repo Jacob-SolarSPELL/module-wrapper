@@ -1,0 +1,34 @@
+.cat-title{
+    text-align: center;
+    margin: 25px;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: bolder;
+}
+.cat-col{
+    text-align:center;
+    margin-right: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+
+}
+.cat-container {
+    margin-bottom: 20px;
+}
+.card-style.card-title{
+    font-size: .5em;
+    height: 75px!important;
+    margin-right: 20px;
+    text-align: center;
+ }
+
+ /*
+  mobile screen size*/
+ @media screen and (min-width:200px) and (max-width: 576px) {
+     .card-style{
+         width:70%;
+     }
+     .cat-col{
+         margin-top: 20px;
+     }
+ }

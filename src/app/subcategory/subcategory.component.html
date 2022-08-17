@@ -1,0 +1,15 @@
+<div class="container cat-container">
+  <div class="cat-title">
+    <p class="text-white bg-primary-dark">{{parentName}}</p>
+  </div>
+  <div class="row justify-content-center cat-row" *ngFor="let category of subcategories| slice:0:(math.ceil(subcategories.length/3)); let i=index">
+      <div class="card card-style col-md-4 cat-col bg-hover-sunglow-50" 
+      style="width: 18rem;" 
+      *ngFor="let category of subcategories| slice:(3*i):(3*i+3)"
+      [routerLink]="category.has_files? ['/files', category.id] : ['/category', category.id]">
+        <div class="card-body">
+          <h5 class="card-title">{{category.name}}</h5>
+        </div>
+      </div>
+  </div>
+</div>
