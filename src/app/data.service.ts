@@ -10,8 +10,6 @@ const cats = [
     id: 11,
     name: "Test 11",
     description: "This is a root level folder",
-    path: "/Test 11",
-    has_img: true,
     has_files: false,
     parent_id: null,
   },
@@ -19,8 +17,6 @@ const cats = [
     id: 12,
     name: "Test 12",
     description: "This is also a root level folder",
-    path: "/Test 12",
-    has_img: true,
     has_files: false,
     parent_id: null,
   },
@@ -28,8 +24,6 @@ const cats = [
     id: 121,
     name: "subcat test 121",
     description: "this is a test",
-    path: "/Test 11/subcat test 121",
-    has_img: true,
     has_files: true,
     parent_id: 12,
   }
@@ -68,8 +62,6 @@ export class DataService {
         id: cat.id,
         name: cat.name,
         description: cat.description,
-        path: cat.path,
-        has_img: cat.has_img,
         has_files: cat.has_files
       }});
       observer.next(mapped);
