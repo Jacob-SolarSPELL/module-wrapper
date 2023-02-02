@@ -24,7 +24,8 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/content"
             ],
 
             "styles": [
@@ -37,7 +38,7 @@
               "node_modules/jquery/dist/jquery.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.js",
-              "src/assets/datatable/dataTables.bootstrap5.min.js",
+              "src/assets/datatable/dataTables.bootstrap5.min.js"
             ]
           },
           "configurations": {
