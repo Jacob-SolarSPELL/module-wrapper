@@ -10,11 +10,11 @@
           style="width: 18rem;" 
           *ngFor="let category of categories| slice:(3*i):(3*i+3)"
           [routerLink]="category.has_files? ['/files', category.id] : ['/category', category.id]">
-            <img *ngIf="category.has_img == true" class="card-img-top" src="content{{category.path}}/CardImg.jpeg" alt="Placeholder image">
-            <div class="card-body">
+            <img *ngIf="category.has_img == true" class="card-img" src="content{{category.path}}/CardImg.jpeg" alt="Placeholder image">
+            <!-- <div class="card-body">
               <h5 class="card-title">{{category.name}}</h5>
               <p class="card-text desc-style">{{category.description}}</p>
-            </div>
+            </div> -->
           </div>
       </div>
     </div>

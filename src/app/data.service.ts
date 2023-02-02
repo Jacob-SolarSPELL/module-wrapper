@@ -20,7 +20,7 @@ const cats = [
     name: "Test 12",
     description: "This is also a root level folder",
     path: "/Test 12",
-    has_img: false,
+    has_img: true,
     has_files: false,
     parent_id: null,
   },
