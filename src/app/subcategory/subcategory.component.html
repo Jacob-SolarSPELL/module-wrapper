@@ -3,6 +3,7 @@
     <p class="text-white bg-primary-dark">{{parentName}}</p>
   </div>
   <div class="row justify-content-center cat-row" *ngFor="let category of subcategories| slice:0:(math.ceil(subcategories.length/3)); let i=index">
+    <ng-container *ngIf="!category.show_image">
       <div class="card card-style col-md-4 cat-col bg-hover-sunglow-50" 
       style="width: 18rem;" 
       *ngFor="let category of subcategories| slice:(3*i):(3*i+3)"
@@ -11,5 +12,22 @@
           <h5 class="card-title">{{category.name}}</h5>
         </div>
       </div>
+    </ng-container>
+
+    <ng-container *ngIf="category.show_image">
+      <div class="card card-style col-md-4 cat-col bg-hover-sunglow-50" 
+      style="width: 18rem; padding: 0;" 
+      *ngFor="let category of subcategories| slice:(3*i):(3*i+3)">
+        <a *ngIf="category.direct_link" href="{{category.path}}/index.html" target="_blank"><img class="card-img" src="{{category.path + image_name}}"></a>
+        <img 
+          class="card-img"
+          src="{{category.path + image_name}}"
+          *ngIf="!category.direct_link" 
+          [routerLink]="category.has_files? ['/files', category.id] : ['/category', category.id]">
+      </div>
+    </ng-container>
+
   </div>
 </div>
+
+<!-- <td><a [href]="pathURL+file.file_path" target="_blank" rel="noopener noreferrer">{{file.name}}</a></td> -->

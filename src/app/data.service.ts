@@ -3,46 +3,89 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Subcategory } from './models/subcategory';
+import { environment } from 'src/environments/environment';
 
 ////Dev new//////////////////////////////////////////////////////////////////////////////////////
 const cats = [
   {
-    id: 11,
-    name: "Test 11",
-    description: "This is a root level folder",
-    path: "/Test 11",
-    has_img: true,
+    id: 0,
+    name: "Learning Materials",
+    description: "blah blah blah",
+    path: "/Learning Materials",
     has_files: false,
     parent_id: null,
+  },
+  {
+    id: 1,
+    name: "Lessons",
+    description: "blah blah blah",
+    path: "/Lessons",
+    has_files: false,
+    parent_id: null,
+  },
+  {
+    id: 11,
+    name: "01 Introduction",
+    description: "",
+    path: "/Lessons/01 Introduction",
+    has_files: true,
+    parent_id: 1,
   },
   {
     id: 12,
-    name: "Test 12",
-    description: "This is also a root level folder",
-    path: "/Test 12",
-    has_img: true,
-    has_files: false,
-    parent_id: null,
+    name: "02 Principles",
+    description: "",
+    path: "/Lessons/02 Principles",
+    has_files: true,
+    parent_id: 1,
   },
   {
-    id: 121,
-    name: "subcat test 121",
-    description: "this is a test",
-    path: "/Test 11/subcat test 121",
-    has_img: true,
+    id: 13,
+    name: "03 Soil and Rainfall",
+    description: "",
+    path: "/Lessons/03 Soil and Rainfall",
     has_files: true,
-    parent_id: 12,
-  }
+    parent_id: 1,
+  },
+  {
+    id: 14,
+    name: "04 Beginning the Season",
+    description: "",
+    path: "/Lessons/04 Beginning the Season",
+    has_files: true,
+    parent_id: 1,
+  },
 ];
 
 const fls = [
   {
     id: 1,
-    name: "test file",
+    name: "index.html",
     size: "5MB",
-    file_path: "/Test 12/subcat test 121/test file.txt",
-    category_id: 121,
-  }
+    file_path: "/Lessons/01 Introduction/index.html",
+    category_id: 11,
+  },
+  {
+    id: 2,
+    name: "index.html",
+    size: "5MB",
+    file_path: "/Lessons/02 Principles/index.html",
+    category_id: 12,
+  },
+  {
+    id: 3,
+    name: "index.html",
+    size: "5MB",
+    file_path: "/Lessons/03 Soil and Rainfall/index.html",
+    category_id: 13,
+  },
+  {
+    id: 4,
+    name: "index.html",
+    size: "5MB",
+    file_path: "/Lessons/04 Beginning the Season/index.html",
+    category_id: 14,
+  },
 ];
 ////Dev end//////////////////////////////////////////////////////////////////////////////////////
 
@@ -54,13 +97,17 @@ export class DataService {
   apiUrl: string;
 
   constructor(private http: HttpClient) { 
-    this.apiUrl = "backend/";
-   
+    if (environment.production){
+      this.apiUrl = "backend/";
+    }
+    else {
+      this.apiUrl = "http://localhost:8000/backend/";
+    }
   }
 
   getCategories(): Observable<any> {
 ////Dev old//////////////////////////////////////////////////////////////////////////////////////
-    // return this.http.get(this.apiUrl.concat('categories.php',""));
+    return this.http.get(this.apiUrl.concat('categories.php',""));
 ////Dev new//////////////////////////////////////////////////////////////////////////////////////
     return new Observable((observer) => {
       var topLevelCats = cats.filter((cat) => cat.parent_id == null);
@@ -68,8 +115,6 @@ export class DataService {
         id: cat.id,
         name: cat.name,
         description: cat.description,
-        path: cat.path,
-        has_img: cat.has_img,
         has_files: cat.has_files
       }});
       observer.next(mapped);
@@ -81,14 +126,15 @@ export class DataService {
     let params = new HttpParams();
     params = params.append('parent_id', parentId);
 ////Dev old//////////////////////////////////////////////////////////////////////////////////////
-    // return this.http.get(this.apiUrl.concat('subcategory_by_category.php'), {params});
+    return this.http.get(this.apiUrl.concat('subcategory_by_category.php'), {params});
 ////Dev new//////////////////////////////////////////////////////////////////////////////////////
     return new Observable((observer) => {
       var subCats = cats.filter((cat) => cat.parent_id == parentId);
       var mapped = subCats.map((cat) => {return {
         id: cat.id,
         name: cat.name,
-        has_files: cat.has_files
+        has_files: cat.has_files,
+        path: 'content' + cat.path,
       }});
       observer.next(
         {
@@ -104,7 +150,7 @@ export class DataService {
     let params = new HttpParams();
     params = params.append('id', parentId);
 ////Dev old//////////////////////////////////////////////////////////////////////////////////////
-    // return this.http.get(this.apiUrl.concat('files_by_category.php'), {params});
+    return this.http.get(this.apiUrl.concat('files_by_category.php'), {params});
 ////Dev new//////////////////////////////////////////////////////////////////////////////////////
     var files = fls.filter((file) => file.category_id == parentId);
     var mapped = files.map((file) => {return {
@@ -126,7 +172,7 @@ export class DataService {
 
   getAllFiles(): Observable<any> {
 ////Dev old//////////////////////////////////////////////////////////////////////////////////////
-    // return this.http.get(this.apiUrl.concat('files_all.php'));
+    return this.http.get(this.apiUrl.concat('files_all.php'));
 ////Dev new//////////////////////////////////////////////////////////////////////////////////////
     return new Observable((observable) => {
       observable.next();

@@ -9,10 +9,10 @@ import { Subcategory } from '../models/subcategory';
   styleUrls: ['./subcategory.component.css']
 })
 export class SubcategoryComponent implements OnInit {
-
   public subcategories: Array<Subcategory> = [];
   public parentName: string = "";
   public  math = Math;
+  public image_name = "/.thumbnail.jpeg";
   constructor( private dataService: DataService,
     private route: ActivatedRoute) { }
 

@@ -16,6 +16,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS categories
                 parent_id INTEGER,
                 path TEXT NOT NULL,
                 description TEXT,
+                show_image BIT NOT NULL DEFAULT 0,
                 FOREIGN KEY (parent_id) REFERENCES categories(id))''')
 c.execute('''CREATE TABLE IF NOT EXISTS files
                 (id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,9 +37,15 @@ def generate_db(folder_name, folder_path, parent_id=None):
                 if os.path.isdir(file_path):
                     category_desc = category_desc + file + ', '
                     generate_db(file, file_path, category_id)
-                elif os.path.isfile(file_path) and not file.startswith('.'):
-                    c.execute("INSERT INTO files (name, size, category_id) VALUES (?, ?, ?)", (file, os.path.getsize(file_path), category_id))
-                    conn.commit()
+                elif os.path.isfile(file_path):
+                    if not file.startswith('.'):
+                        c.execute("INSERT INTO files (name, size, category_id) VALUES (?, ?, ?)", (file, os.path.getsize(file_path), category_id))
+                        conn.commit()
+                    else:
+                        if file.lower().startswith('.thumbnail'):
+                            #The folder has a thumbnail, mark it in the database
+                            c.execute("UPDATE categories SET show_image = ? WHERE id = ?", (True, category_id))
+                            conn.commit()
                 c.execute("UPDATE categories SET description = ? WHERE id = ? ", (category_desc.rstrip(', ') , category_id))
                 conn.commit()
 
