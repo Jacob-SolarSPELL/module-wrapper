@@ -13,12 +13,13 @@ export class DataService {
   apiUrl: string;
 
   constructor(private http: HttpClient) { 
-    if (environment.production){
-      this.apiUrl = "backend/";
-    }
-    else {
-      this.apiUrl = "http://localhost:8000/backend/";
-    }
+    // if (environment.production){
+    //   this.apiUrl = "backend/";
+    // }
+    // else {
+    //   this.apiUrl = "http://localhost:8000/backend/";
+    // }
+    this.apiUrl = environment.apiUrl;
   }
 
   getCategories(): Observable<any> {
