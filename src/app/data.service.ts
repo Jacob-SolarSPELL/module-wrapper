@@ -28,13 +28,13 @@ export class DataService {
 
   getSubcategories(parentId:number): Observable<any> {
     let params = new HttpParams();
-    params = params.append('parent_id', parentId);
+    params = params.append('parent_id', parentId.toString());
     return this.http.get(this.apiUrl.concat('subcategory_by_category.php'), {params});
   }
 
   getFiles(parentId:number): Observable<any> {
     let params = new HttpParams();
-    params = params.append('id', parentId);
+    params = params.append('id', parentId.toString());
     return this.http.get(this.apiUrl.concat('files_by_category.php'), {params});
   }
 
