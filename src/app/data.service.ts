@@ -71,49 +71,14 @@ export class DataService {
 
   getSubcategories(parentId:number): Observable<any> {
     let params = new HttpParams();
-    params = params.append('parent_id', parentId);
-////Dev old//////////////////////////////////////////////////////////////////////////////////////
-    // return this.http.get(this.apiUrl.concat('subcategory_by_category.php'), {params});
-////Dev new//////////////////////////////////////////////////////////////////////////////////////
-    return new Observable((observer) => {
-      var subCats = cats.filter((cat) => cat.parent_id == parentId);
-      var mapped = subCats.map((cat) => {return {
-        id: cat.id,
-        name: cat.name,
-        has_files: cat.has_files
-      }});
-      observer.next(
-        {
-          parentName: cats.find((cat) => cat.parent_id == parentId)?.name,
-          subcategories: mapped,
-        }
-      );
-    });
-////Dev end//////////////////////////////////////////////////////////////////////////////////////
+    params = params.append('parent_id', parentId.toString());
+    return this.http.get(this.apiUrl.concat('subcategory_by_category.php'), {params});
   }
 
   getFiles(parentId:number): Observable<any> {
     let params = new HttpParams();
-    params = params.append('id', parentId);
-////Dev old//////////////////////////////////////////////////////////////////////////////////////
-    // return this.http.get(this.apiUrl.concat('files_by_category.php'), {params});
-////Dev new//////////////////////////////////////////////////////////////////////////////////////
-    var files = fls.filter((file) => file.category_id == parentId);
-    var mapped = files.map((file) => {return {
-      id: file.id,
-      name: file.name,
-      size: file.size,
-      file_path: file.file_path,
-      category_id: file.category_id.toString(),
-      category_name: cats.find((cat) => cat.id == file.category_id)?.name
-    }});
-    return new Observable((observable) => {
-      observable.next({
-        parentName: cats.find((cat) => cat.parent_id == parentId)?.name,
-        files: mapped,
-      });
-    });
-////Dev end//////////////////////////////////////////////////////////////////////////////////////
+    params = params.append('id', parentId.toString());
+    return this.http.get(this.apiUrl.concat('files_by_category.php'), {params});
   }
 
   getAllFiles(): Observable<any> {
