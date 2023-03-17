@@ -12,7 +12,7 @@
 }
 .card-style{
     width:80%;
-    height: 200px!important;
+    min-height: 200px!important;
     margin-right: 20px;
     position: relative;
  }

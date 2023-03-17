@@ -77,6 +77,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "module-wrapper:build"
+          },
           "configurations": {
             "production": {
               "browserTarget": "module-wrapper:build:production"

@@ -12,12 +12,23 @@
           style="width: 18rem;" 
           *ngFor="let category of categories| slice:(3*i):(3*i+3)"
           [routerLink]="category.has_files? ['/files', category.id] : ['/category', category.id]">
-            <!-- <img *ngIf="category.has_img == true" class="card-img" src="content{{category.path}}/CardImg.jpeg" alt="Placeholder image"> -->
-            <!-- <img class="card-img" src="content{{category.path}}/CardImg.jpeg" alt="Placeholder image"> -->
             <div class="card-body">
               <h5 class="card-title">{{category.name}}</h5>
               <p class="card-text desc-style">{{category.description}}</p>
-            </div> -->
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="category.show_image">
+          <div class="card card-style col-md-4 cat-col bg-hover-sunglow-50" 
+          style="width: 18rem; padding: 0;" 
+          *ngFor="let category of categories| slice:(3*i):(3*i+3)">
+            <a *ngIf="category.direct_link" href="{{category.path}}/index.html" target="_blank"><img class="card-img" src="{{category.path + image_name}}"></a>
+            <img 
+              class="card-img"
+              src="{{category.path + image_name}}"
+              *ngIf="!category.direct_link" 
+              [routerLink]="category.has_files? ['/files', category.id] : ['/category', category.id]">
           </div>
         </ng-container>
 
