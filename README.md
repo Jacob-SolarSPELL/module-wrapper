@@ -14,6 +14,8 @@ The apiURL in data.services.ts looks to port 8000 when in dev mode
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+And run `ng build --prod` for production mode
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).

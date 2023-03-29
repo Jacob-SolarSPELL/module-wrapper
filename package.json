@@ -45,6 +45,6 @@
     "typescript": "~3.7.5"
   },
   "browserslist": [
-    "> 0.05%"
+    "> 0.05%, last 5 versions, not dead, Chrome > 56"
   ]
 }
