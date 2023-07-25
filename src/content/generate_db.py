@@ -1,5 +1,8 @@
 import sqlite3
 import os
+# natural sort algorithm to allow for sorting of files and folders in a natural way
+import re
+natsort = lambda s: [int(t) if t.isdigit() else t.lower() for t in re.split('(\d+)', s)]
 
 if os.path.exists('module.db'):
     print('Old database found, deleting...')
@@ -38,21 +41,23 @@ def generate_db(folder_name, folder_path, parent_id=None):
                     category_desc = category_desc + file + ', '
                     generate_db(file, file_path, category_id)
                 elif os.path.isfile(file_path):
-                    if not file.startswith('.'):
+                    if file.lower().startswith('_thumbnail'):
+                        #The folder has a thumbnail, mark it in the database
+                        c.execute("UPDATE categories SET show_image = ? WHERE id = ?", (True, category_id))
+                        conn.commit()
+                    elif file.startswith('.DS_Store'):
+                        continue
+                    else:
                         c.execute("INSERT INTO files (name, size, category_id) VALUES (?, ?, ?)", (file, os.path.getsize(file_path), category_id))
                         conn.commit()
-                    else:
-                        if file.lower().startswith('.thumbnail'):
-                            #The folder has a thumbnail, mark it in the database
-                            c.execute("UPDATE categories SET show_image = ? WHERE id = ?", (True, category_id))
-                            conn.commit()
                 c.execute("UPDATE categories SET description = ? WHERE id = ? ", (category_desc.rstrip(', ') , category_id))
                 conn.commit()
 
 root_path = os.getcwd()
-for folder in os.listdir(os.getcwd()):
+# for folder in os.listdir(os.getcwd()):
+#     generate_db(folder, os.getcwd()+"/"+folder)
+for folder in sorted(os.listdir(os.getcwd()), key=natsort):
     generate_db(folder, os.getcwd()+"/"+folder)
 
 conn.close()
 print("Database generated.")
-    

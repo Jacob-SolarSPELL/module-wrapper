@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   public categories: Array<Category> = [];
   //Used in home.component.html
   public  math = Math;
-  public image_name = "/.thumbnail.png"
+  public image_name = "/_thumbnail.png"
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
